@@ -1,5 +1,6 @@
 import logging
 import discord
+import ast
 from discord import member
 from discord.ext import commands
 from discord.flags import Intents
@@ -14,9 +15,16 @@ logger.addHandler(handler)
 intents = discord.Intents.default()
 intents.members = True
 intents.guilds = True
-token = open('token.txt','r').read()
+tokenFile = open('token.txt','r')
+token = tokenFile.read()
+tokenFile.close()
+changelogFile = open("changelog.txt", 'r')
+dictionary = ast.literal_eval(changelogFile.read())
+changelogFile.close()
+
 bot = commands.Bot(command_prefix='.', intents=intents)
-game = discord.Game("with the API")
+gameString = f" > .help < v{dictionary[len(dictionary)-1]['version']}"
+game = discord.Game(gameString)
 bot.remove_command('help')
 @bot.event
 async def on_guild_join(guild):
