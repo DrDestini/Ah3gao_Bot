@@ -11,7 +11,7 @@ class comandosPesca(commands.Cog):
     async def pesca(self, ctx, *, atributo:str = None):
         #database.doesExist(ctx.author.id)
         #comprobar si existe al unirse un miembro..
-        if ctx.channel.name.lower() not in ('lago'):
+        if 'lago' not in ctx.channel.name.lower():
             await ctx.send("¡Los comandos de pesca se deben usar en un canal que contenga 'lago' en el nombre!")
             return
         if atributo is None:
@@ -53,19 +53,20 @@ class comandosPesca(commands.Cog):
 
         pescaChoice = random.choices(population=listaPeces, weights=weight)
         #tenemos el pescado ya, añadirlo con la base de datos
+        _indexPescaChoice = listaPeces.index(pescaChoice[0])
         cosa = database.addFishofTier(pescaChoice[0][0], ctx.author.id)
         if cosa[0]:
             for _, name, XP, price, _ in pescaChoice:
                 if price > 0:
-                    string = f">**{ctx.author.mention}**< ha pescado *`{name}`* valorado en __`{price} €`__!\nHa ganado **`{XP} xp`** y ha subido a nivel {cosa[1]}"
+                    string = f">**{ctx.author.mention}**< ha pescado *`{name} ({weight[_indexPescaChoice] * 100} %)`* valorado en __`{price} €`__!\nHa ganado **`{XP} xp`** y ha subido a nivel {cosa[1]}"
                 else:
-                    string = f">**{ctx.author.mention}**< ha pescado *`{name}`* !\nHa ganado **`{XP} xp`** y ha subido a nivel {cosa[1]}"
+                    string = f">**{ctx.author.mention}**< ha pescado *`{name} ({weight[_indexPescaChoice] * 100} %)`* !\nHa ganado **`{XP} xp`** y ha subido a nivel {cosa[1]}"
         else:
             for _, name, XP, price, _ in pescaChoice:
                 if price > 0:
-                    string = f">**{ctx.author.mention}**< ha pescado *`{name}`* valorado en __`{price} €`__!\nHa ganado **`{XP} xp`**!"
+                    string = f">**{ctx.author.mention}**< ha pescado *`{name} ({weight[_indexPescaChoice] * 100} %)`* valorado en __`{price} €`__!\nHa ganado **`{XP} xp`**!"
                 else:
-                    string = f">**{ctx.author.mention}**< ha pescado *`{name}`* !\nHa ganado **`{XP} xp`**!"
+                    string = f">**{ctx.author.mention}**< ha pescado *`{name} ({weight[_indexPescaChoice] * 100} %)`* !\nHa ganado **`{XP} xp`**!"
         await ctx.send(string)
     @pesca.group(aliases=['inventory', 'Inv', 'inv', 'Inventory'])
     async def inventario(self, ctx):

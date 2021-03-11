@@ -22,7 +22,7 @@ class Economia(commands.Cog):
             await ctx.send(f"Los bots no tienen cartera...", delete_after=3)
             return
         balance = database.getBalance(member.id)
-        await ctx.send(f"{member.mention} has:\n`{balance} €`")
+        await ctx.send(f"{member.mention} tiene:\n`{balance} €`")
 
     @commands.command()
     async def pedircredito(self, ctx, cuanto:float = None):

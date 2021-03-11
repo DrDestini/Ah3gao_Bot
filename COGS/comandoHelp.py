@@ -8,13 +8,21 @@ class comandoHelp(commands.Cog):
     async def help(self, ctx):
         embed=discord.Embed(title=" ")
         embed.set_author(name="Comandos")
-        embed.add_field(name="__**Basicos**__", value="**.suggest** -> Sugerir algo relacionado con el bot\n**.ping** -> ¿Responde el bot?\n**.choose** -> Elegir entre varias opciones\n**.guildstats** -> Ver las estadisticas del servidor\n**.userstats** -> Ver las estadisticas de un miembro", inline=False)
+        embed.add_field(name="__**Basicos**__", value="**.cambios** -> Ver la versión actual del bot y los últimos cambios...\n**.suggest** -> Sugerir algo relacionado con el bot\n**.ping** -> ¿Responde el bot?\n**.choose** -> Elegir entre varias opciones\n**.guildstats** -> Ver las estadisticas del servidor\n**.userstats** -> Ver las estadisticas de un miembro", inline=False)
         embed.add_field(name="__**Economía**__", value="**.balance** -> Ver el dinero de un miembro\n**.deuda** -> Ver la deuda de un miembro\n**.economia** -> Ver el ranking local/global\n**.betflip** -> Apostar en cara/cruz\n**.betroll** -> Apostar en un dado\n**.pedircredito** -> Pedir dinero al banco\n**.pagarcredito** -> Pagar deudas", inline=False)
         embed.add_field(name="__**Anime y Manga**__", value="**.asearch** -> Buscar un anime por nombre en MAL\n**.msearch** -> Buscar un manga por nombre en MAL\n**.hsearch** -> Buscar números en nhentai\n**.rhen** -> Sacar un *H* aleatorio", inline=False)
         embed.add_field(name="__**Pesca**__", value="**.pesca** -> Tira la caña en uno de los lagos. (Usa help .pesca para más información)\n**\t->.pesca inventario** -> Muestra tu inventario de pesca.\n**\t->.pesca stats** -> Muestra tu nivel actual y la XP necesaria para subir de nivel.\n**\t->.pesca vender** -> Vende todos los peces que tienes por dinero.", inline=False)
         embed.set_footer(text="Escribe .help <comando> para más ayuda")
         await ctx.send(embed=embed)
+    @help.group()
+    async def cambios(self, ctx):
+        embed=discord.Embed(title=" ")
+        embed.set_author(name="HELP .SUGGEST")
+        embed.add_field(name="__**Descripción**__", value="Usa este comando para ver la versión actual del bot y los últimos cambios... más o menos.",inline=False)
+        embed.add_field(name="__**Uso**__", value=".cambios",inline=False)
 
+        embed.set_footer(text="<> = parámetro obligatorio | [] parámetro opcional")
+        await ctx.send(embed=embed)
     @help.group()
     async def suggest(self, ctx):
         embed=discord.Embed(title=" ")

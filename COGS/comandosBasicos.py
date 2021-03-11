@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import datetime as DT
 import random
+import ast
 
 from COGS import database
 OWNERID = 223949937010802688
@@ -9,6 +10,18 @@ from discord.ext.commands.core import command
 class comandosBasicos(commands.Cog, name='Comandos Basicos'):
     def __init__(self, bot):
         self.bot = bot
+    @commands.command(aliases=['version', 'changes', 'cambios'])
+    async def changelog(self, ctx):
+        file = open("changelog.txt", 'r', encoding='utf-8')
+        dictionary = ast.literal_eval(file.read())
+        file.close()
+        
+        embed=discord.Embed(title=" ")
+        embed.set_author(name=f"{self.bot.user.name}'s' CHANGELOG")
+        embed.set_image(url=self.bot.user.avatar_url)
+        embed.add_field(name="**__VERSIÓN__**", value=f"v{dictionary[len(dictionary)-1]['version']}", inline=False)
+        embed.add_field(name="**__CAMBIOS__**", value=f"{dictionary[len(dictionary)-1]['cambios']}", inline=False)
+        await ctx.send(embed=embed)
 
     @commands.command()
     async def ping(self, ctx):

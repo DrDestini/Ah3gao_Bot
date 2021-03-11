@@ -34,7 +34,8 @@ def registerUser(discordID):
         con.commit()
     except mariadb.Error as e:
         print(f'Error while registering user: {e}')
-
+    cur.close()
+    con.close()
 
 def doesExist(discordID):
     con = getConnection()
@@ -49,7 +50,8 @@ def doesExist(discordID):
             return False
     except mariadb.Error as e:
         print(f"Error while checking if user {discordID} exists: {e}")
-
+    cur.close()
+    con.close()
 def saidUwU(discordID):
     con = getConnection()
     cur = con.cursor()
